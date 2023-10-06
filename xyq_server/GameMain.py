@@ -3,7 +3,8 @@
 @Time    : 2023/10/6 16:00
 @Author  : wenjiawei
 """
-from QiPan import QiPan
+from Game import Game
 
 if __name__ == "__main__":
-    qi_pan = QiPan()
+    game = Game()
+    game.start()

@@ -14,6 +14,7 @@ class QiZi:
         self.pai = None
         self.pan = pan
         self.power = power
+        self.add_chess(pos, self)
 
     def set_pai(self, pai: Pai):
         # 每一轮都要set一次，牌不一样
@@ -22,6 +23,7 @@ class QiZi:
     def movable_list(self):
         """
         玩家点击时，显示可以走的位置
+        注意要排除己方棋子的位置
         """
         pass
 
@@ -39,6 +41,21 @@ class QiZi:
 
     def is_win(self):
         return self.role == 1
+
+    def add_chess(self, pos, chess):
+        if self.pan.matrix[pos[0]][pos[1]]:
+            if self.pan.matrix[pos[0]][pos[1]].is_win():
+                self.pan.game.over(f"胜利者是{chess.power}")
+        self.pan.matrix[pos[0]][pos[1]] = chess
+
+    def remove_chess(self, pos):
+        if self.pan.matrix[pos[0]][pos[1]]:
+            self.pan.matrix[pos[0]][pos[1]] = 0
+
+    def move_chess(self, from_pos, to_pos, chess):
+        self.remove_chess(from_pos)
+        self.add_chess(to_pos, chess)
+        self.move(to_pos)
 
 
 class King(QiZi):

@@ -42,7 +42,7 @@ class PaiDui:
 
 class Pai:
     def __init__(self):
-        self.matrix = [[0] * 5] * 5
+        self.matrix = [[0 for j in range(5)] for i in range(5)]
 
 
 class Pai1(Pai):

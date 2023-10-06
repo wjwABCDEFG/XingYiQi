@@ -17,24 +17,23 @@ power
 
 class QiPan:
 
-    def __int__(self, game):
-        self.matrix = [[0] * 5] * 5
+    def __init__(self, game):
+        self.matrix = [[0 for j in range(5)] for i in range(5)]
         self.game = game
-        self.power = False
 
     def check(self, pos: tuple):
         return 0 <= pos[0] < len(self.matrix) and 0 <= pos[1] < len(self.matrix[0])
 
-    def add_chess(self, pos, chess):
-        if self.matrix[pos[0]][pos[1]]:
-            if self.matrix[pos[0]][pos[1]].is_win():
-                self.game.over(f"胜利者是{self.power}")
-        self.matrix[pos[0]][pos[1]] = chess
-
-    def remove_chess(self, pos):
-        if self.matrix[pos[0]][pos[1]]:
-            self.matrix[pos[0]][pos[1]] = 0
-
-    def move_chess(self, from_pos, to_pos, chess):
-        self.remove_chess(from_pos)
-        self.add_chess(to_pos, chess)
+    # def add_chess(self, pos, chess):
+    #     if self.matrix[pos[0]][pos[1]]:
+    #         if self.matrix[pos[0]][pos[1]].is_win():
+    #             self.game.over(f"胜利者是{chess.power}")
+    #     self.matrix[pos[0]][pos[1]] = chess
+    #
+    # def remove_chess(self, pos):
+    #     if self.matrix[pos[0]][pos[1]]:
+    #         self.matrix[pos[0]][pos[1]] = 0
+    #
+    # def move_chess(self, from_pos, to_pos, chess):
+    #     self.remove_chess(from_pos)
+    #     self.add_chess(to_pos, chess)
