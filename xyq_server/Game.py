@@ -1,15 +1,20 @@
 # -*- coding: utf-8 -*-
 """
+游戏全局规则，对应菜单栏
 @Time    : 2023/10/6 16:03
 @Author  : wenjiawei
 """
+from collections import OrderedDict
+
 from QiPan import QiPan
 from QiZi import Soldier, King
+from Serializable import Serializable
 
 
-class Game:
+class Game(Serializable):
+
     def __init__(self):
-        pass
+        super().__init__()
 
     def start(self, msg=None):
         print(f"游戏开始 {msg}")
@@ -30,10 +35,20 @@ class Game:
         Soldier(pan, (4, 3), True)
         Soldier(pan, (4, 4), True)
 
-        pass
+        # 返回给客户端
+        data = {
+            "game_id": self.id,
+            # "chess":
+        }
+        return data
 
     def pause(self, msg=None):
         print(f"游戏暂停 {msg}")
 
     def over(self, msg=None):
         print(f"游戏结束 {msg}")
+
+    def serialize(self):
+        return OrderedDict([
+            ('id', self.id),
+        ])

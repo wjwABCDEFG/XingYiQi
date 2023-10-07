@@ -1,14 +1,19 @@
 # -*- coding: utf-8 -*-
 """
-QiZi
+QiZi（棋子）
   0王
   1兵
 """
+from collections import OrderedDict
+
 from Pai import Pai
+from Serializable import Serializable
 
 
-class QiZi:
+class QiZi(Serializable):
+
     def __init__(self, pan, pos: tuple, power: bool):
+        super().__init__()
         self.role = -1
         self.pos = pos
         self.pai = None
@@ -47,6 +52,7 @@ class QiZi:
             if self.pan.matrix[pos[0]][pos[1]].is_win():
                 self.pan.game.over(f"胜利者是{chess.power}")
         self.pan.matrix[pos[0]][pos[1]] = chess
+        self.pan.add_chess_to_pan(chess)
 
     def remove_chess(self, pos):
         if self.pan.matrix[pos[0]][pos[1]]:
@@ -56,6 +62,17 @@ class QiZi:
         self.remove_chess(from_pos)
         self.add_chess(to_pos, chess)
         self.move(to_pos)
+
+    def serialize(self):
+        return OrderedDict([
+            ('id', self.id),
+            ('pos', self.pos),
+            ('camp', self.power),
+            ('role', self.role),
+        ])
+
+    def deserialize(self, data: dict, hashmap: dict = {}, restore_id: bool = True) -> bool:
+        pass
 
 
 class King(QiZi):
