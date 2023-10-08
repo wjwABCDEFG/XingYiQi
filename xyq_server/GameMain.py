@@ -3,11 +3,9 @@
 @Time    : 2023/10/6 16:00
 @Author  : wenjiawei
 """
-import views
-from R import R
+from net.server import Server
 
 if __name__ == "__main__":
-    data = views.begin()
-    res = R().Data(data)
-    res = res.Json()
-    pass
+    s = Server()
+    s.start()
+
