@@ -8,22 +8,22 @@ import json
 
 class R:
     def __init__(self, code=200, msg='', data=None):
-        self._code = code
-        self._msg = msg
-        self._data = data
+        self.code = code
+        self.msg = msg
+        self.data = data
 
-    def code(self, code=0):
-        self._code = code
+    def Code(self, code=0):
+        self.code = code
         return self
 
-    def msg(self, msg=''):
-        self._msg = msg
+    def Msg(self, msg=''):
+        self.msg = msg
         return self
 
-    def data(self, data=None):
-        self._data = data
+    def Data(self, data=None):
+        self.data = data
         return self
 
-    def json(self):
+    def Json(self):
         attr = self.__dict__
         return json.dumps(attr)

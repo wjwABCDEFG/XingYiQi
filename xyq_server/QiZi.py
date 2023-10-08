@@ -48,15 +48,13 @@ class QiZi(Serializable):
         return self.role == 1
 
     def add_chess(self, pos, chess):
-        if self.pan.matrix[pos[0]][pos[1]]:
-            if self.pan.matrix[pos[0]][pos[1]].is_win():
-                self.pan.game.over(f"胜利者是{chess.power}")
-        self.pan.matrix[pos[0]][pos[1]] = chess
+        if self.pan.pos(pos[0], pos[1]) and self.pan.pos(pos[0], pos[1]).is_win():
+            self.pan.game.over(f"胜利者是{chess.power}")
         self.pan.add_chess_to_pan(chess)
 
     def remove_chess(self, pos):
-        if self.pan.matrix[pos[0]][pos[1]]:
-            self.pan.matrix[pos[0]][pos[1]] = 0
+        if self.pan.pos(pos[0], pos[1]):
+            self.pan.set_pos(pos[0], pos[1], 0)
 
     def move_chess(self, from_pos, to_pos, chess):
         self.remove_chess(from_pos)

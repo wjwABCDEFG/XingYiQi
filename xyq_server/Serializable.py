@@ -3,7 +3,7 @@
 @Time    : 2023/10/7 20:48
 @Author  : wenjiawei
 """
-from typing import OrderedDict
+from collections import OrderedDict
 
 
 class Serializable:

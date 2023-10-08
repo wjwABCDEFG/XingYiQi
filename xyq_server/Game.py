@@ -15,12 +15,14 @@ class Game(Serializable):
 
     def __init__(self):
         super().__init__()
+        self.pan = None
 
     def start(self, msg=None):
         print(f"游戏开始 {msg}")
 
         # 初始化棋盘
         pan = QiPan(self)
+        self.pan = pan
 
         # 初始化双方棋子
         King(pan, (0, 2), False)
@@ -36,11 +38,7 @@ class Game(Serializable):
         Soldier(pan, (4, 4), True)
 
         # 返回给客户端
-        data = {
-            "game_id": self.id,
-            # "chess":
-        }
-        return data
+        return self.serialize()
 
     def pause(self, msg=None):
         print(f"游戏暂停 {msg}")
@@ -51,4 +49,6 @@ class Game(Serializable):
     def serialize(self):
         return OrderedDict([
             ('id', self.id),
+            ("game_id", self.id),
+            ("pan", self.pan.serialize()),
         ])

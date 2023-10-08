@@ -3,8 +3,11 @@
 @Time    : 2023/10/6 16:00
 @Author  : wenjiawei
 """
-from Game import Game
+import views
+from R import R
 
 if __name__ == "__main__":
-    game = Game()
-    game.start()
+    data = views.begin()
+    res = R().Data(data)
+    res = res.Json()
+    pass
