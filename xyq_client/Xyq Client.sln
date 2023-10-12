@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xyq Client", "Xyq Client.csproj", "{DBD8E15D-15D9-40B4-8B5A-583D6C16DEEE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBD8E15D-15D9-40B4-8B5A-583D6C16DEEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBD8E15D-15D9-40B4-8B5A-583D6C16DEEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBD8E15D-15D9-40B4-8B5A-583D6C16DEEE}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{DBD8E15D-15D9-40B4-8B5A-583D6C16DEEE}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{DBD8E15D-15D9-40B4-8B5A-583D6C16DEEE}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{DBD8E15D-15D9-40B4-8B5A-583D6C16DEEE}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal

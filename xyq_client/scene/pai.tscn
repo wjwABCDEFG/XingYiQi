@@ -1,0 +1,359 @@
+[gd_scene load_steps=5 format=3 uid="uid://4wccky3omb77"]
+
+[ext_resource type="Texture2D" uid="uid://chsi8q65r7q6s" path="res://pic/qipan.jpg" id="1_nw583"]
+[ext_resource type="Script" path="res://scripts/pai.cs" id="2_ckljn"]
+[ext_resource type="Texture2D" uid="uid://m3bpdg82wjq0" path="res://pic/kexingqu.png" id="3_dw75c"]
+[ext_resource type="Texture2D" uid="uid://dbn14kgmghgte" path="res://pic/qiziweizhi.png" id="4_eouxm"]
+
+[node name="pai" type="Sprite2D"]
+texture = ExtResource("1_nw583")
+script = ExtResource("2_ckljn")
+
+[node name="hang1" type="Node2D" parent="."]
+visible = false
+metadata/_edit_group_ = true
+
+[node name="yige1" type="Node2D" parent="hang1"]
+visible = false
+position = Vector2(-193, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang1/yige1"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang1/yige1"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige2" type="Node2D" parent="hang1"]
+visible = false
+position = Vector2(-93.235, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang1/yige2"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang1/yige2"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige3" type="Node2D" parent="hang1"]
+visible = false
+position = Vector2(6, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang1/yige3"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang1/yige3"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige4" type="Node2D" parent="hang1"]
+visible = false
+position = Vector2(106, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang1/yige4"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang1/yige4"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige5" type="Node2D" parent="hang1"]
+visible = false
+position = Vector2(206, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang1/yige5"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang1/yige5"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="hang2" type="Node2D" parent="."]
+visible = false
+position = Vector2(0, 98)
+metadata/_edit_group_ = true
+
+[node name="yige1" type="Node2D" parent="hang2"]
+visible = false
+position = Vector2(-193, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang2/yige1"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang2/yige1"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige2" type="Node2D" parent="hang2"]
+visible = false
+position = Vector2(-93.235, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang2/yige2"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang2/yige2"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige3" type="Node2D" parent="hang2"]
+visible = false
+position = Vector2(6, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang2/yige3"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang2/yige3"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige4" type="Node2D" parent="hang2"]
+visible = false
+position = Vector2(106, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang2/yige4"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang2/yige4"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige5" type="Node2D" parent="hang2"]
+visible = false
+position = Vector2(206, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang2/yige5"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang2/yige5"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="hang3" type="Node2D" parent="."]
+visible = false
+position = Vector2(0, 190)
+metadata/_edit_group_ = true
+
+[node name="yige1" type="Node2D" parent="hang3"]
+visible = false
+position = Vector2(-193, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang3/yige1"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang3/yige1"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige2" type="Node2D" parent="hang3"]
+visible = false
+position = Vector2(-93.235, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang3/yige2"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang3/yige2"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige3" type="Node2D" parent="hang3"]
+visible = false
+position = Vector2(6, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang3/yige3"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang3/yige3"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige4" type="Node2D" parent="hang3"]
+visible = false
+position = Vector2(106, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang3/yige4"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang3/yige4"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige5" type="Node2D" parent="hang3"]
+visible = false
+position = Vector2(206, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang3/yige5"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang3/yige5"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="hang4" type="Node2D" parent="."]
+visible = false
+position = Vector2(0, 280)
+metadata/_edit_group_ = true
+
+[node name="yige1" type="Node2D" parent="hang4"]
+visible = false
+position = Vector2(-193, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang4/yige1"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang4/yige1"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige2" type="Node2D" parent="hang4"]
+visible = false
+position = Vector2(-93.235, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang4/yige2"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang4/yige2"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige3" type="Node2D" parent="hang4"]
+visible = false
+position = Vector2(6, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang4/yige3"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang4/yige3"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige4" type="Node2D" parent="hang4"]
+visible = false
+position = Vector2(106, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang4/yige4"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang4/yige4"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige5" type="Node2D" parent="hang4"]
+visible = false
+position = Vector2(206, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang4/yige5"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang4/yige5"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="hang5" type="Node2D" parent="."]
+visible = false
+position = Vector2(0, 380)
+metadata/_edit_group_ = true
+
+[node name="yige1" type="Node2D" parent="hang5"]
+visible = false
+position = Vector2(-193, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang5/yige1"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang5/yige1"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige2" type="Node2D" parent="hang5"]
+visible = false
+position = Vector2(-93.235, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang5/yige2"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang5/yige2"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige3" type="Node2D" parent="hang5"]
+visible = false
+position = Vector2(6, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang5/yige3"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang5/yige3"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige4" type="Node2D" parent="hang5"]
+visible = false
+position = Vector2(106, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang5/yige4"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang5/yige4"]
+visible = false
+texture = ExtResource("4_eouxm")
+
+[node name="yige5" type="Node2D" parent="hang5"]
+visible = false
+position = Vector2(206, -186)
+metadata/_edit_group_ = true
+
+[node name="enable" type="Sprite2D" parent="hang5/yige5"]
+visible = false
+texture = ExtResource("3_dw75c")
+
+[node name="host" type="Sprite2D" parent="hang5/yige5"]
+visible = false
+texture = ExtResource("4_eouxm")
