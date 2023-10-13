@@ -7,7 +7,7 @@ QiZi（棋子）
 from collections import OrderedDict
 
 from Pai import Pai
-from Serializable import Serializable
+from common.Serializable import Serializable
 
 
 class QiZi(Serializable):

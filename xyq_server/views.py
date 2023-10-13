@@ -4,17 +4,26 @@
 @Author  : wenjiawei
 """
 from Game import Game
+from common.R import R
+from net.msg import Msg
 
 game = Game()
 
 
-def begin():
-    return game.start()
+def match(request):
+    return Game()
 
 
-def play():
+def begin(request, param):
+    info = game.start(param)
+    resp = R().Data(info).Dict()
+    request.send_all(Msg(resp, sender=request.sender).value)
+    return resp
+
+
+def play(request):
     return {}
 
 
-def over():
+def over(request):
     return {}

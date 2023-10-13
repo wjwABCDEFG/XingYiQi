@@ -27,3 +27,6 @@ class R:
     def Json(self):
         attr = self.__dict__
         return json.dumps(attr)
+
+    def Dict(self):
+        return self.__dict__

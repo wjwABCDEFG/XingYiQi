@@ -10,8 +10,8 @@ power
 """
 from collections import OrderedDict
 
-from Exception import IllegalPosException
-from Serializable import Serializable
+from common.Exception import IllegalPosException
+from common.Serializable import Serializable
 
 
 class QiPan(Serializable):

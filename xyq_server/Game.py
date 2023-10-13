@@ -8,7 +8,7 @@ from collections import OrderedDict
 
 from QiPan import QiPan
 from QiZi import Soldier, King
-from Serializable import Serializable
+from common.Serializable import Serializable
 
 
 class Game(Serializable):
