@@ -11,3 +11,11 @@ class IllegalPosException(Exception):
 
     def __str__(self):
         print("棋子不可以在此位置")
+
+
+class IllegalChessException(Exception):
+    def __init__(self, msg=""):
+        self.msg = msg
+
+    def __str__(self):
+        print("非法棋子")
