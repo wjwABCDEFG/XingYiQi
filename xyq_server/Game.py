@@ -16,6 +16,8 @@ class Game(Serializable):
     def __init__(self):
         super().__init__()
         self.pan = None
+        self.player1 = None
+        self.player2 = None
 
     def start(self, msg=None):
         print(f"游戏开始 {msg}")

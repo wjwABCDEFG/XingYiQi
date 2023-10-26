@@ -4,6 +4,7 @@
 @Author  : wenjiawei
 """
 import views
+from Hall import Hall
 from common.R import R
 from net.msg import Msg
 from net.rpc_server import RPCServer
@@ -16,7 +17,8 @@ class Server(SocketServer, RPCServer):
 
     def __init__(self):
         super().__init__()
-        self.game_list = []
+        self.hall = Hall(self)
+        self.hall.start()
 
     def handle_msg(self, msg):
         msg = Msg.load(msg)
@@ -48,8 +50,7 @@ class Server(SocketServer, RPCServer):
         elif msg.types == Msg.TYPE_NORMAL:
             req = msg.data
             func = getattr(views, req['method'])
-            func(self, req['params'])
-            # self.send_all(msg.value)
+            func(self, self.client_info[msg.sender]['client'], req['params'])
 
     def test_rpc(self, user_id):
         return R().Data(f'{user_id}, welcome to rpc api').Dict()

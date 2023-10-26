@@ -5,6 +5,7 @@
 """
 
 import socket
+import threading
 import traceback
 
 from net.msg import Msg
@@ -22,6 +23,9 @@ class SocketServer:
         self.client_info = {}       # 为了方便根据ip查找，key:ip:addr, value:{ip: ip, port: addr, client: socket_client对象}
 
     def start(self):
+        threading.Thread(target=self._start).start()
+
+    def _start(self):
         self.init_server()
 
         while True:
