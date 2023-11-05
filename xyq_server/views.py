@@ -3,13 +3,10 @@
 @Time    : 2023/10/6 18:24
 @Author  : wenjiawei
 """
-from Game import Game
-from Hall import Hall
 # from Player import Player
 from common.Exception import IllegalChessException
 from common.R import R
 from common.config import DEBUG
-from common.db import g_mongo
 from net.msg import Msg
 
 
@@ -22,19 +19,18 @@ def match(server, client, params):
 def begin(server, client, params):
     game_id = int(params.get('game_id', None))
     game = server.hall.get_game(game_id)
-    info = game.start(params)
-    resp = R().Data(info).Dict()
-    server.send_all(Msg(resp, sender=server.sender).value)
-    DEBUG and print(resp)
-    DEBUG and game.pan.show()
-    return resp
+    game.start(params)
+    # resp = R().Data(info).Dict()
+    # server.send_all(Msg(resp, sender=server.sender).value)
+    # DEBUG and print(resp)
+    # DEBUG and game.pan.show()
+    # return resp
 
 
 def move(server, client, params):
-    game_id = int(params.get('game_id', None))
-    player_id = int(params.get('player_id', None))
-    game_id = int(params.get('game_id', None))
-    chess_id = int(params.get('chess_id', None))
+    game_id = int(params.get('game_id', 0))
+    player_id = int(params.get('player_id', 0))
+    chess_id = int(params.get('chess_id', 0))
     from_pos = eval(params.get('from_pos', None))
     to_pos = eval(params.get('to_pos', None))
 

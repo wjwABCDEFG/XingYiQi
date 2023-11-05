@@ -6,16 +6,21 @@
 """
 from collections import OrderedDict
 
+from Pai import PaiDui
 from QiPan import QiPan
 from QiZi import Soldier, King
+from common.R import R
 from common.Serializable import Serializable
+from net.msg import Msg
 
 
 class Game(Serializable):
 
-    def __init__(self):
+    def __init__(self, server):
         super().__init__()
+        self.server = server
         self.pan = None
+        self.paidui = None
         self.player1 = None
         self.player2 = None
 
@@ -39,8 +44,16 @@ class Game(Serializable):
         Soldier(pan, (4, 3), True)
         Soldier(pan, (4, 4), True)
 
-        # 返回给客户端
-        return self.serialize()
+        # 初始化牌堆
+        self.paidui = PaiDui(self)
+        self.paidui.deal_cards()
+
+        # 返回给客户端，很多时候由于发给两个客户端的消息是不同的，不能统一返回，提到这一层来
+        common_info = self.serialize()
+        for player in [self.player1, self.player2]:
+            common_info['pai'] = list(map(lambda pai: pai.id, player.pai_list))
+            resp = R().Data(common_info).Dict()
+            self.server.send_to(player.client, Msg(resp, sender=self.server.sender).value)
 
     def pause(self, msg=None):
         print(f"游戏暂停 {msg}")

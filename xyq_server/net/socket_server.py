@@ -49,7 +49,7 @@ class SocketServer:
             self.client_list.append(client_socket)
             ip, addr = client_socket.getpeername()
             self.client_info[f'{ip}:{addr}'] = {'ip': ip, 'port': addr, 'client': client_socket}
-            self.send_to(client_socket, Msg("{'code': 200, 'data': 'connect server success', 'msg': ''}").value)
+            self.send_to(client_socket, Msg({'code': 200, 'data': 'connect server success', 'msg': ''}).value)
         except BlockingIOError as e:
             # accept的非阻塞异常
             pass
