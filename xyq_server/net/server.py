@@ -16,7 +16,8 @@ from common.singleton import Singleton
 class Server(SocketServer, RPCServer):
 
     def __init__(self):
-        super().__init__()
+        SocketServer.__init__(self)
+        RPCServer.__init__(self)
         self.hall = Hall(self)
         self.hall.start()
 
@@ -43,9 +44,11 @@ class Server(SocketServer, RPCServer):
             func_args = msg.data.get('func_args', None)
             func_kwargs = msg.data.get('func_kwargs', None)
             callback = func_kwargs.pop('callback', None)
-            res = self.rpc_call(func_name, func_args, func_kwargs)
-            callback and res.update({'callback': callback})
             to = self.client_info[msg.sender]['client']
+            func_kwargs.update({'server': self, 'client': to})
+            res = self.rpc_call(func_name, func_args, func_kwargs)
+            if not res: res = {}
+            callback and res.update({'callback': callback})
             self.send_to(to, Msg(res, types=Msg.TYPE_RPC, sender=self.sender).value)
         elif msg.types == Msg.TYPE_NORMAL:
             req = msg.data
