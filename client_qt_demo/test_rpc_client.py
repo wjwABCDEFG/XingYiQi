@@ -1,0 +1,29 @@
+"""
+运行两次
+"""
+from net.msg import Msg
+from net.rpc_client import RPCClient
+from net.socket_client import SocketClient
+
+
+class Client(SocketClient, RPCClient):
+    def handle_msg(self, msg: str):
+        msg = Msg.load(msg)
+        if msg.types == Msg.TYPE_RPC:
+            callback = msg.data.pop('callback', None)
+            if isinstance(callback, str):
+                callback = getattr(self, callback)
+            callback and callback(msg.data)
+        else:
+            print(msg)
+
+    def rpc_cb(self, resp):
+        print('rpc_cb')
+        print(resp['data'])
+
+
+if __name__ == '__main__':
+    client = Client('172.23.208.1', 9999)
+    client.start()
+
+    client.test_rpc(user_id='user1', callback='rpc_cb')
