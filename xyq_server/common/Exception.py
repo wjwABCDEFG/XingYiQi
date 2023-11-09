@@ -27,3 +27,11 @@ class GameNotFoundException(Exception):
 
     def __str__(self):
         print("房间不存在")
+
+
+class PlayerNotFoundException(Exception):
+    def __init__(self, msg=""):
+        self.msg = msg
+
+    def __str__(self):
+        print("玩家不存在")

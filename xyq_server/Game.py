@@ -48,18 +48,17 @@ class Game(Serializable):
         self.paidui = PaiDui(self)
         self.paidui.deal_cards()
 
-        # 返回给客户端，很多时候由于发给两个客户端的消息是不同的，不能统一返回，提到这一层来
-        common_info = self.serialize()
-        for player in [self.player1, self.player2]:
-            common_info['pai'] = list(map(lambda pai: pai.id, player.pai_list))
-            resp = R().Data(common_info).Dict()
-            self.server.send_to(player.client, Msg(resp, sender=self.server.sender).value)
-
     def pause(self, msg=None):
         print(f"游戏暂停 {msg}")
 
     def over(self, msg=None):
         print(f"游戏结束 {msg}")
+
+    def get_player(self, player_id):
+        if self.player1.id == player_id:
+            return self.player1
+        else:
+            return self.player2
 
     def serialize(self):
         return OrderedDict([

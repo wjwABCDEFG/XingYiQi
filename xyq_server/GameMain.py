@@ -10,3 +10,5 @@ if __name__ == "__main__":
     s = Server()
     s.start()
     s.register_function(views.match)
+    s.register_function(views.begin)
+

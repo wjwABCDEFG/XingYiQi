@@ -45,7 +45,7 @@ class QiPan(Serializable):
         :return:
         """
         if not self.check(from_pos) or not self.check(to_pos): raise IllegalPosException()
-        if chess.pos != from_pos: raise IllegalChessException()
+        if tuple(chess.pos) != tuple(from_pos): raise IllegalChessException()
         self.remove_chess(chess)
         die_chess = self.pos(to_pos[0], to_pos[1])
         if die_chess:
@@ -71,7 +71,7 @@ class QiPan(Serializable):
         for chess in self.chess_list:
             if chess.id == chess_id:
                 return chess
-        return None
+        raise IllegalChessException()
 
     def who_is_winner(self, die_chess: QiZi):
         if die_chess.role != QiZi.King: return None

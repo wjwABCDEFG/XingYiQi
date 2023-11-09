@@ -45,7 +45,7 @@ class Server(SocketServer, RPCServer):
             func_kwargs = msg.data.get('func_kwargs', None)
             callback = func_kwargs.pop('callback', None)
             to = self.client_info[msg.sender]['client']
-            func_kwargs.update({'server': self, 'client': to})
+            func_kwargs.update({'server': self, 'client': to, 'types': 'RPC'})
             res = self.rpc_call(func_name, func_args, func_kwargs)
             if not res: res = {}
             callback and res.update({'callback': callback})
@@ -53,7 +53,7 @@ class Server(SocketServer, RPCServer):
         elif msg.types == Msg.TYPE_NORMAL:
             req = msg.data
             func = getattr(views, req['method'])
-            func(self, self.client_info[msg.sender]['client'], req['params'])
+            func(self, self.client_info[msg.sender]['client'], **req['params'])
 
     def test_rpc(self, user_id):
         return R().Data(f'{user_id}, welcome to rpc api').Dict()

@@ -11,12 +11,13 @@ from common.db import g_mongo
 
 class Player(Serializable):
 
-    def __init__(self, client=None, id=None, power=None):
+    def __init__(self, client=None, game=None, id=None, power=None):
         super().__init__()
-        self.pai_list = []
         self.client = client
-        self.user_info = {}
         self.power = power
+        self.game = game
+        self.user_info = {}
+        self.pai_list = []
         if id:
             self.id = id
 
