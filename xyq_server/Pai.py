@@ -25,8 +25,8 @@ class PaiDui(Serializable):
     def _load(self):
         pai_list = []
         with open("./pai.json") as f:
-            pai_info = json.loads(f.read())
-        for key, val in pai_info.items():
+            self.pai_info = json.loads(f.read())
+        for key, val in self.pai_info.items():
             pai_list.append(Pai(val, key))
         if len(pai_list) < 5:
             raise RuntimeError("牌库太少了，玩不了")
@@ -48,15 +48,20 @@ class PaiDui(Serializable):
         self.game.player1.pai_list = divide[0]
         self.game.player2.pai_list = divide[1]
 
-    def take(self):
+    def take(self, player):
         """
-        出牌
+        发牌机发牌给玩家
         """
         if not self.remain_list and self.drop_list:
             self.reset()
-        top = self.remain_list.pop()
-        self.drop_list.append(top)
-        return top
+        pai = self.remain_list.pop()
+        player.pai_list.append(pai)
+
+    def drop(self, pai):
+        """
+        出牌，置入弃牌堆
+        """
+        self.drop_list.append(pai)
 
     def serialize(self) -> OrderedDict:
         return super().serialize()
@@ -64,19 +69,24 @@ class PaiDui(Serializable):
 
 class Pai(Serializable):
 
-    def __init__(self, data, name='UntitledCard'):
+    def __init__(self, data, id='UntitledCard'):
         super().__init__()
-        self.name = name
         self.matrix = data
+        self.id = id
+
+    def check_pos(self, rel_vec) -> bool:
+        """
+        减产棋子落点是否符合牌型
+        :param rel_vec: 相对位置
+        :return:
+        """
+        return self.matrix[2 - rel_vec[0]][2 - rel_vec[1]] == 1
 
     def serialize(self) -> OrderedDict:
         return OrderedDict([
+            ("id", self.id),
             ("info", self.matrix),
         ])
 
     def deserialize(self, data: dict, hashmap: dict = {}, restore_id: bool = True) -> bool:
         return super().deserialize(data, hashmap, restore_id)
-
-
-if __name__ == '__main__':
-    paidui = PaiDui()
