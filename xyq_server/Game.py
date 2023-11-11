@@ -23,6 +23,7 @@ class Game(Serializable):
         self.paidui = None
         self.player1 = None
         self.player2 = None
+        self.power = True
 
     def start(self, msg=None):
         print(f"游戏开始 {msg}")
@@ -60,9 +61,16 @@ class Game(Serializable):
         else:
             return self.player2
 
+    def get_cur_player(self):
+        if self.player1.power == self.power:
+            return self.player1
+        else:
+            return self.player2
+
     def serialize(self):
         return OrderedDict([
             ('id', self.id),
             ("game_id", self.id),
             ("pan", self.pan.serialize()),
+            ("pai", []),      # 游戏设置成仅返回用户自己的牌，防止作弊，在serialize后各自再补全该参数
         ])
