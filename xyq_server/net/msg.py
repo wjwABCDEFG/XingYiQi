@@ -7,6 +7,8 @@ import json
 import string
 import traceback
 
+from common.Exception import MsgFormatException
+
 
 class Msg:
     TYPE_OFFLINE = -1
@@ -41,5 +43,5 @@ class Msg:
             info = json.loads(val)
             return Msg(info['data'], info['types'], info['sender'])
         except Exception as e:
-            print('非法消息')
             traceback.print_exc()
+            raise MsgFormatException()
