@@ -69,6 +69,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QLineEdit" name="pai_text">
+          <property name="placeholderText">
+           <string>牌id</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QLineEdit" name="from_text">
           <property name="placeholderText">
            <string>from位置</string>

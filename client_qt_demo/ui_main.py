@@ -63,6 +63,11 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.chess_text)
 
+        self.pai_text = QLineEdit(self.centralwidget)
+        self.pai_text.setObjectName(u"pai_text")
+
+        self.verticalLayout.addWidget(self.pai_text)
+
         self.from_text = QLineEdit(self.centralwidget)
         self.from_text.setObjectName(u"from_text")
 
@@ -108,6 +113,7 @@ class Ui_MainWindow(object):
         self.match_btn.setText(QCoreApplication.translate("MainWindow", u"\u5339\u914d", None))
         self.start_btn.setText(QCoreApplication.translate("MainWindow", u"\u5f00\u59cb\u6e38\u620f", None))
         self.chess_text.setPlaceholderText(QCoreApplication.translate("MainWindow", u"\u68cb\u5b50id", None))
+        self.pai_text.setPlaceholderText(QCoreApplication.translate("MainWindow", u"\u724cid", None))
         self.from_text.setPlaceholderText(QCoreApplication.translate("MainWindow", u"from\u4f4d\u7f6e", None))
         self.to_text.setPlaceholderText(QCoreApplication.translate("MainWindow", u"to\u4f4d\u7f6e", None))
         self.move_btn.setText(QCoreApplication.translate("MainWindow", u"\u79fb\u52a8", None))

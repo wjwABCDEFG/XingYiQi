@@ -32,7 +32,7 @@ class Client(SocketClient, RPCClient):
 
         # 日志，返回值打印到右侧ui展示区
         # print(msg.data)
-        self.ui.main_window.text_area.append(json.dumps(msg.data, indent=4))
+        self.ui.main_window.text_area.append(json.dumps(msg.data, indent=4, ensure_ascii=False))
         self.ui.main_window.text_area.append('=' * 20)
 
         # 处理数据
@@ -51,6 +51,7 @@ class Client(SocketClient, RPCClient):
         self.ui.main_window.match_btn.clicked.connect(self.match)
         self.ui.main_window.start_btn.clicked.connect(self.enter)
         self.ui.main_window.move_btn.clicked.connect(lambda : self.move(int(self.ui.main_window.chess_text.text()),
+                                                                        str(self.ui.main_window.pai_text.text()),
                                                                         eval(self.ui.main_window.from_text.text()),
                                                                         eval(self.ui.main_window.to_text.text())
                                                                         ))
@@ -79,7 +80,7 @@ class Client(SocketClient, RPCClient):
         #               types=Msg.TYPE_NORMAL,
         #               sender=self.sender).value)
 
-    def move(self, chess_id, from_pos, to_pos):
+    def move(self, chess_id, pai_id, from_pos, to_pos):
         """
         移动棋子
         """
@@ -88,6 +89,7 @@ class Client(SocketClient, RPCClient):
                        'params': {
                            'player_id': self.player_id,
                            'chess_id': chess_id,
+                           'pai_id': pai_id,
                            'from_pos': from_pos,
                            'to_pos': to_pos
                        }},
@@ -97,5 +99,5 @@ class Client(SocketClient, RPCClient):
 
 if __name__ == '__main__':
     app = QApplication([])
-    client = Client('192.168.0.104', 9999)
+    Client('192.168.0.104', 9999)
     sys.exit(app.exec())
