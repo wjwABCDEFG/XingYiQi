@@ -3,28 +3,26 @@ extends Node2D
 var json_path = "res://config/pai.json"
 var car_details
 
-func _ready():
-	read(json_path)
-	init("card1")
-
 func init(car_name):
+	read(json_path)
+	assert(car_details!=null)
 	var arr = car_details[car_name]
 	for j in arr.size():
 		for i in arr[j].size():
 			if arr[j][i] == 1:
 				var can_move_point = Sprite.new()
-				$Qipan.add_child(can_move_point)
+				$Qipan/lu.add_child(can_move_point)
 				can_move_point.texture=load("res://pic/kexingqu.png")
 				can_move_point.position = Vector2(100*i, 100*j)
 			elif arr[j][i] == -1:
 				var begin_point = Sprite.new()
-				$Qipan.add_child(begin_point)
+				$Qipan/lu.add_child(begin_point)
 				begin_point.texture=load("res://pic/qiziweizhi.png")
 				begin_point.position = Vector2(100*i, 100*j)
 
 func add_sprite(args):
 	var node = Sprite.new()
-	$Qipan.add_child(node)
+	$Qipan/lu.add_child(node)
 	node.texture=load(args)
 	return node
 

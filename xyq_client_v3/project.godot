@@ -12,7 +12,6 @@ config_version=4
 
 config/name="Xyq Client V 3"
 run/main_scene="res://scene/main.tscn"
-config/icon="res://icon.png"
 
 [autoload]
 

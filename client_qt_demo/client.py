@@ -99,5 +99,5 @@ class Client(SocketClient, RPCClient):
 
 if __name__ == '__main__':
     app = QApplication([])
-    Client('192.168.0.104', 9999)
+    Client('26.26.26.1', 9999)
     sys.exit(app.exec())

@@ -34,7 +34,7 @@ class Client(SocketClient, RPCClient):
 
 
 if __name__ == '__main__':
-    client = Client('192.168.0.104', 9999)
+    client = Client('26.26.26.1', 9999)
     client.start()
 
     while True:
