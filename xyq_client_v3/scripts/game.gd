@@ -1,6 +1,8 @@
 extends Node2D
 
 export(PackedScene) var pai_scene
+export(PackedScene) var piece_scene
+export(PackedScene) var checkerboard_scene
 
 # 1.  *   对局开始：
 
@@ -34,55 +36,104 @@ func read(path):
 	file.close()
 	return res
 
-var game_init_complete = false
-var is_my_turn = false
+var b_game_init_complete = false
+var b_my_turn = false
+var b_choose_card = false
+var b_choose_piece = false
+var b_choose_checkerboard = false
 
 func _ready():
-	is_my_turn = Global.mora_res
+	b_my_turn = Global.mora_res
 	_GameInit()
 
+# 初始化棋盘
 func _GameInit():
-	# 初始化棋盘
 	var game_init_json_data = read("res://config/init_game_test.json")
 	assert(game_init_json_data!=null)
 	_setup_player_hands(game_init_json_data["data"]["pai"])
+	
+	var node = $CanvasLayer/main_qipan/Qipan/GridContainer
+	for i in range(5):
+		for j in range(5):
+			var btn = checkerboard_scene.instance()
+			btn.rect_min_size = Vector2(100, 100)
+			btn.set_idx(j, i)
+			btn.connect("confirm_cherkerboard", self, "_confirm_cherkerboard")
+			node.add_child(btn)
+
 	for item in game_init_json_data["data"]["pan"]["chess"]:
 		var pos = item["pos"]
 		var camp = item["camp"]
 		var role = item["role"]
-		_draw_chess(pos, camp, role)
+		_draw_piece(pos, camp, role)
 	
 	# 初始化完成
-	game_init_complete = true
+	b_game_init_complete = true
+
+func _confirm_card(args):
+	print(args)
+
+func _confirm_piece(camp, x, y):
+	if camp:
+		print(x, y)
+
+func _confirm_cherkerboard(arg1, arg2):
+	print(arg1, arg2)
 
 func _setup_player_hands(cards:Array): # arg - array for hand cards
 	var pai = pai_scene.instance()
 	pai.rotation_degrees = 180 # 需要旋转，原因不明。
 	pai.init(cards[0])
 	$CanvasLayer/myHand/left.add_child(pai)
+	pai.connect("confirm_card", self, "_confirm_card")
+
 	pai = pai_scene.instance()
 	pai.init(cards[1])
 	pai.rotation_degrees = 180
 	$CanvasLayer/myHand/right.add_child(pai)
-	# 先不给敌人手牌显示
-	# pai = pai_scene.instance()
-	# $CanvasLayer/yourHand/left.add_child(pai)
-	# pai = pai_scene.instance()
-	# $CanvasLayer/yourHand/right.add_child(pai)
+	pai.connect("confirm_card", self, "_confirm_card")
 
-func _draw_chess(pos:Array, camp:bool, role:int):
-	var chess = Sprite.new()
+func _draw_piece(pos:Array, camp:bool, role:int):
+	var piece = piece_scene.instance()
 	var node = $CanvasLayer/main_qipan/Qipan/lu
-	if role:
-		chess.texture = load("pic/bing.jpg")
-	else:
-		chess.texture = load("pic/wang.jpg")
 	if !camp:
-		chess.rotation_degrees = 180
-	chess.position = Vector2(100*pos[1], 100*pos[0])
-	node.add_child(chess)
+		piece.rotation_degrees = 180
+		if role:
+			piece.set_texture( load("pic/blue_solider.png") )
+		else:
+			piece.set_texture( load("pic/blue_king.png") )
+	else:
+		if role:
+			piece.set_texture( load("pic/red_solider.png") )
+		else:
+			piece.set_texture( load("pic/red_king.png") )
+	piece.set_camp(camp)
+	piece.set_pos(pos[0], pos[1])
+	piece.position = Vector2(100 * pos[1], 100 * pos[0])
+	piece.scale = Vector2.ONE * 0.8
+	piece.connect("confirm_piece", self, "_confirm_piece")
+	node.add_child(piece)
 
+func _end_turn():
+	b_my_turn = false
+	b_choose_card = false
+	b_choose_piece = false
+	b_choose_checkerboard = false
+
+# game loop
 func _process(delta):
-	if game_init_complete:
-		pass
-	
+	if !b_game_init_complete:
+		return
+
+	# TODO 轮询到回合没
+
+	if b_my_turn:
+		if b_choose_card && b_choose_piece:
+			# TODO 高亮行动区域
+			if b_choose_checkerboard:
+				# TODO 下棋
+				print("我下棋了")
+				_end_turn()
+		else:
+			b_choose_checkerboard = false
+

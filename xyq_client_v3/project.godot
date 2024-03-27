@@ -16,6 +16,7 @@ run/main_scene="res://scene/main.tscn"
 [autoload]
 
 Global="*res://scripts/Global.gd"
+PieceProcessor="*res://scripts/Piece_processor.gd"
 
 [display]
 

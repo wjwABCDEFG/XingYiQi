@@ -1,12 +1,13 @@
 extends Node2D
 
-var json_path = "res://config/pai.json"
-var car_details
+var _card_id
 
-func init(car_name):
-	read(json_path)
-	assert(car_details!=null)
-	var arr = car_details[car_name]
+func init(card_name):
+	_card_id = card_name
+	var card_details = PieceProcessor.read_card_detail(card_name)
+	_init_pai(card_details)
+
+func _init_pai(arr):
 	for j in arr.size():
 		for i in arr[j].size():
 			if arr[j][i] == 1:
@@ -26,11 +27,6 @@ func add_sprite(args):
 	node.texture=load(args)
 	return node
 
-func read(path):
-	var file = File.new()
-	file.open(path, File.READ)
-	car_details = parse_json(file.get_as_text())
-	file.close()
 
 	# var data = {}
 	# var scene = "sceneName"
@@ -55,6 +51,18 @@ func read(path):
 	# 	print("json===    ",json)
 	# 	file.close()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
+func _on_Button_mouse_entered():
+	$Qipan.scale *= 1.2;
+
+func _on_Button_mouse_exited():
+	$Qipan.scale /= 1.2;
+
+signal confirm_card(card_id)
+
+func _on_Button_button_down():
+	emit_signal("confirm_card", _card_id)
+
+
+
+

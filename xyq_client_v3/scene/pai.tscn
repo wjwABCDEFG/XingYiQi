@@ -11,3 +11,14 @@ texture = ExtResource( 2 )
 
 [node name="lu" type="Node2D" parent="Qipan"]
 position = Vector2( -195, -185 )
+
+[node name="Button" type="Button" parent="Qipan"]
+show_behind_parent = true
+margin_left = -264.0
+margin_top = -246.0
+margin_right = 262.0
+margin_bottom = 250.0
+
+[connection signal="button_down" from="Qipan/Button" to="." method="_on_Button_button_down"]
+[connection signal="mouse_entered" from="Qipan/Button" to="." method="_on_Button_mouse_entered"]
+[connection signal="mouse_exited" from="Qipan/Button" to="." method="_on_Button_mouse_exited"]
