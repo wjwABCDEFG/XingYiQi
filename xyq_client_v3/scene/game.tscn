@@ -39,17 +39,8 @@ __meta__ = {
 [node name="Qipan" type="Sprite" parent="CanvasLayer/main_qipan"]
 scale = Vector2( 0.43236, 0.447152 )
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/main_qipan/Qipan"]
-anchor_left = -250.0
-anchor_top = -250.0
-anchor_right = -248.389
-anchor_bottom = -250.0
-margin_top = 3.05176e-05
-margin_right = 498.389
-margin_bottom = 500.0
-custom_constants/vseparation = 0
-custom_constants/hseparation = 0
-columns = 5
+[node name="checkerboard" type="Node2D" parent="CanvasLayer/main_qipan/Qipan"]
+position = Vector2( -250, -250 )
 
 [node name="lu" type="Node2D" parent="CanvasLayer/main_qipan/Qipan"]
 position = Vector2( -200, -200 )

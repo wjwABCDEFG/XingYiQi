@@ -25,8 +25,17 @@ func _on_Button_mouse_entered():
 	if b_our_camp:
 		self.scale *= 1.2
 
-signal confirm_piece(camp, x, y)
+signal confirm_piece(instance)
 
 func _on_Button_button_up():
-	emit_signal("confirm_piece", b_our_camp, posX, posY)
+	emit_signal("confirm_piece", self)
 	
+
+var _normal_mat = load("res://material/normal.tres");
+var _fire_mat = load("res://material/fire_outline.tres");
+
+func set_choice(state):
+	if state:
+		self.get_child(0).material = _fire_mat
+	else:
+		self.get_child(0).material = _normal_mat

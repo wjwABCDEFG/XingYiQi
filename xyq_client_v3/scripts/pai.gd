@@ -1,25 +1,37 @@
 extends Node2D
+# 单张牌类
 
 var _card_id
+var viable_area = []
+var viable_area_offset = []
+var begin_point
 
 func init(card_name):
 	_card_id = card_name
 	var card_details = PieceProcessor.read_card_detail(card_name)
 	_init_pai(card_details)
+	_init_offset()
+
+func _init_offset():
+	assert(begin_point)
+	for v2 in viable_area:
+		viable_area_offset.push_back(v2 - begin_point)
 
 func _init_pai(arr):
 	for j in arr.size():
 		for i in arr[j].size():
 			if arr[j][i] == 1:
-				var can_move_point = Sprite.new()
-				$Qipan/lu.add_child(can_move_point)
-				can_move_point.texture=load("res://pic/kexingqu.png")
-				can_move_point.position = Vector2(100*i, 100*j)
+				var Sp = Sprite.new()
+				$Qipan/lu.add_child(Sp)
+				Sp.texture=load("res://pic/kexingqu.png")
+				Sp.position = Vector2(100*i, 100*j)
+				viable_area.append(Vector2(j, i))
 			elif arr[j][i] == -1:
-				var begin_point = Sprite.new()
-				$Qipan/lu.add_child(begin_point)
-				begin_point.texture=load("res://pic/qiziweizhi.png")
-				begin_point.position = Vector2(100*i, 100*j)
+				var Sp = Sprite.new()
+				$Qipan/lu.add_child(Sp)
+				Sp.texture=load("res://pic/qiziweizhi.png")
+				Sp.position = Vector2(100*i, 100*j)
+				begin_point = Vector2(j, i)
 
 func add_sprite(args):
 	var node = Sprite.new()
@@ -27,6 +39,14 @@ func add_sprite(args):
 	node.texture=load(args)
 	return node
 
+var _normal_mat = load("res://material/normal.tres");
+var _fire_mat = load("res://material/fire_outline.tres");
+
+func set_choice(state):
+	if state:
+		self.get_child(0).material = _fire_mat
+	else:
+		self.get_child(0).material = _normal_mat
 
 	# var data = {}
 	# var scene = "sceneName"
@@ -58,10 +78,10 @@ func _on_Button_mouse_entered():
 func _on_Button_mouse_exited():
 	$Qipan.scale /= 1.2;
 
-signal confirm_card(card_id)
+signal confirm_card(instance)
 
 func _on_Button_button_down():
-	emit_signal("confirm_card", _card_id)
+	emit_signal("confirm_card", self)
 
 
 

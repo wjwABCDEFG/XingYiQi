@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=2]
+
+[ext_resource path="res://material/shader/fire_outline.tres" type="Shader" id=1]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+
+[sub_resource type="NoiseTexture" id=2]
+noise = SubResource( 1 )
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/size = 0.9
+shader_param/pow_size = 3.8
+shader_param/speed = 0.5
+shader_param/color = Color( 1, 0.133333, 0.282353, 1 )
+shader_param/noise = SubResource( 2 )

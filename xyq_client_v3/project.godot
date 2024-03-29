@@ -15,8 +15,10 @@ run/main_scene="res://scene/main.tscn"
 
 [autoload]
 
-Global="*res://scripts/Global.gd"
-PieceProcessor="*res://scripts/Piece_processor.gd"
+Global="*res://scripts/Singleton/Global.gd"
+MaterialMgr="*res://scripts/Singleton/MaterialMgr.gd"
+PieceProcessor="*res://scripts/Singleton/PieceProcessor.gd"
+CheckboardProcessor="*res://scripts/Singleton/CheckboardProcessor.gd"
 
 [display]
 
