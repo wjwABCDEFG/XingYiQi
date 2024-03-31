@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scripts/pai.gd" type="Script" id=1]
-[ext_resource path="res://pic/qipan.jpg" type="Texture" id=2]
+[ext_resource path="res://pic/qipan.png" type="Texture" id=2]
 
 [node name="pai" type="Node2D"]
 script = ExtResource( 1 )
@@ -10,14 +10,14 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 
 [node name="lu" type="Node2D" parent="Qipan"]
-position = Vector2( -195, -185 )
+position = Vector2( -248, -253 )
 
 [node name="Button" type="Button" parent="Qipan"]
 show_behind_parent = true
-margin_left = -264.0
-margin_top = -246.0
-margin_right = 262.0
-margin_bottom = 250.0
+margin_left = -340.0
+margin_top = -340.0
+margin_right = 340.0
+margin_bottom = 340.0
 
 [connection signal="button_down" from="Qipan/Button" to="." method="_on_Button_button_down"]
 [connection signal="mouse_entered" from="Qipan/Button" to="." method="_on_Button_mouse_entered"]

@@ -46,11 +46,17 @@ var b_choose_checkerboard = false
 var mgr_checkboard = null
 var map_playing_card = {}
 
+var cls_interface = preload("res://scripts/Network/interface.gd")
+var interface_helper = null
+
 func _ready():
 	mgr_checkboard = CheckboardProcessor
 	# b_my_turn = Global.mora_res
 	b_my_turn = true
 	_GameInit()
+	interface_helper = cls_interface.new()
+	Global.TCP_client.put_str(interface_helper.assemble_login("aa", "bb"))
+	print(IP.get_local_interfaces()[0]["addresses"])
 
 # 初始化棋盘
 func _GameInit():
@@ -114,6 +120,7 @@ func _setup_player_hands(cards:Array): # arg - array for hand cards
 		pai.init(cards[0])
 		map_playing_card[cards[0]] = pai
 	pai.rotation_degrees = 180 # 需要旋转，原因不明。
+	pai.scale = Vector2(0.8, 0.8)
 	$CanvasLayer/myHand/left.add_child(pai)
 	pai.connect("confirm_card", self, "_confirm_card")
 
@@ -124,6 +131,7 @@ func _setup_player_hands(cards:Array): # arg - array for hand cards
 		pai.init(cards[1])
 		map_playing_card[cards[1]] = pai
 	pai.rotation_degrees = 180
+	pai.scale = Vector2(0.8, 0.8)
 	$CanvasLayer/myHand/right.add_child(pai)
 	pai.connect("confirm_card", self, "_confirm_card")
 

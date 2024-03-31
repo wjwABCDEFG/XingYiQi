@@ -24,13 +24,13 @@ func _init_pai(arr):
 				var Sp = Sprite.new()
 				$Qipan/lu.add_child(Sp)
 				Sp.texture=load("res://pic/kexingqu.png")
-				Sp.position = Vector2(100*i, 100*j)
+				Sp.position = Vector2(125*i, 125*j)
 				viable_area.append(Vector2(j, i))
 			elif arr[j][i] == -1:
 				var Sp = Sprite.new()
 				$Qipan/lu.add_child(Sp)
 				Sp.texture=load("res://pic/qiziweizhi.png")
-				Sp.position = Vector2(100*i, 100*j)
+				Sp.position = Vector2(125*i, 125*j)
 				begin_point = Vector2(j, i)
 
 func add_sprite(args):

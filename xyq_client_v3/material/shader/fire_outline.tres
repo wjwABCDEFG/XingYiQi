@@ -20,5 +20,7 @@ void fragment(){
 	trunc (k);
 	n = vec4(k,k,k,1);
 	vec4 t = texture(TEXTURE, uv);
-	COLOR  = mix(t, color, n + ol);
+	vec4 final = mix(t, color, n + ol);
+	final.a = t.a;
+	COLOR  = final;
 }"
