@@ -37,11 +37,11 @@ class Msg:
                 'data': self.data,
                 'sender': self.sender}
 
-    @classmethod
-    def load(cls, val: string):
+    @staticmethod
+    def load(val: string) -> 'Msg':
         try:
             info = json.loads(val)
             return Msg(info['data'], info['types'], info['sender'])
         except Exception as e:
-            traceback.print_exc()
+            # traceback.print_exc()
             raise MsgFormatException()

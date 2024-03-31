@@ -4,29 +4,41 @@
 @Time    : 2023/10/6 16:03
 @Author  : wenjiawei
 """
+import random
 from collections import OrderedDict
 
+from _socket import SocketType
+
 from Pai import PaiDui
+from Player import Player
 from QiPan import QiPan
 from QiZi import Soldier, King
-from common.R import R
 from common.Serializable import Serializable
-from net.msg import Msg
 
 
 class Game(Serializable):
 
-    def __init__(self, server):
+    def __init__(self, server: SocketType, player1: Player, player2: Player):
         super().__init__()
         self.server = server
         self.pan = None
         self.paidui = None
-        self.player1 = None
-        self.player2 = None
+        self.player1 = player1
+        self.player2 = player2
         self.power = True
+        self._init_state()
 
-    def start(self, msg=None):
-        print(f"游戏开始 {msg}")
+    def _init_state(self):
+        self.player1.game = self
+        self.player1.state = Player.PLAYING
+        self.player2.game = self
+        self.player2.state = Player.PLAYING
+        random_first = random.choice([True, False])
+        self.player1.power = random_first
+        self.player2.power = not random_first
+
+    def start(self):
+        print(f"游戏开始 {self.id}")
 
         # 初始化棋盘
         pan = QiPan(self)
@@ -49,11 +61,11 @@ class Game(Serializable):
         self.paidui = PaiDui(self)
         self.paidui.deal_cards()
 
-    def pause(self, msg=None):
-        print(f"游戏暂停 {msg}")
+    def pause(self):
+        print(f"游戏暂停 {self.id}")
 
-    def over(self, msg=None):
-        print(f"游戏结束 {msg}")
+    def over(self):
+        print(f"游戏结束 {self.id}")
 
     def get_player(self, player_id):
         if self.player1.id == player_id:

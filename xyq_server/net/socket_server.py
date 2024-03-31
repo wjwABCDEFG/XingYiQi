@@ -8,22 +8,24 @@ import socket
 import threading
 import traceback
 
+from _socket import SocketType
+
 from net.msg import Msg
 
 HOST = socket.gethostbyname(socket.gethostname())
 PORT = 9999
-BUFFSIZE = 1024  # 定义一次从socket缓冲区最多读入1024个字节
+BUFF_SIZE = 1024  # 定义一次从socket缓冲区最多读入1024个字节
 
 
 class SocketServer:
 
     def __init__(self):
         self.server_socket = None
-        self.client_list = []       # socket_client对象
-        self.client_info = {}       # 为了方便根据ip查找，key:ip:addr, value:{ip: ip, port: addr, client: socket_client对象}
+        self.client_list = []  # socket_client对象
+        self.client_info = {}  # 为了方便根据ip查找，key:ip:addr, value:{ip: ip, port: addr, client: socket_client对象}
 
     def start(self):
-        threading.Thread(target=self._start).start()
+        threading.Thread(target=self._start, name='t-client-listener').start()
 
     def _start(self):
         self.init_server()
@@ -57,12 +59,12 @@ class SocketServer:
     def recv_all(self):
         for client_socket in self.client_list:
             try:
-                data = client_socket.recv(BUFFSIZE)
+                data = client_socket.recv(BUFF_SIZE)
                 if not data:
                     continue
                 msg = data.decode('utf-8')
                 print(f'接收数据：{msg}')
-                self.handle_msg(msg)
+                self.handle_msg(client_socket, msg)
             except BlockingIOError as e:
                 pass
             except ConnectionResetError as e:
@@ -72,7 +74,7 @@ class SocketServer:
                 print("可能是for循环里面remove连接出错了")
                 traceback.print_exc()
 
-    def send_all(self, msg: str):
+    def send_all(self, msg: str) -> None:
         for client_socket in self.client_list:
             try:
                 self.send_to(client_socket, msg)
@@ -80,7 +82,7 @@ class SocketServer:
                 print(f'用户{client_socket.getpeername()}断线了')
                 self.offline(client=client_socket)
 
-    def send_to(self, client, msg: str):
+    def send_to(self, client: SocketType, msg: str) -> None:
         key = self.get_client_key(client)
         if key not in self.client_info:
             # TODO 如果离线消息要保留，要在这里加入离线消息队列
@@ -92,25 +94,25 @@ class SocketServer:
             print('用户断线了')
             self.offline(info=key)
 
-    def offline(self, client=None, info=''):
+    def offline(self, client: SocketType = None, info='') -> None:
         # TODO 要发给他的好友，离线通知
         if client:
             self.client_list.remove(client)
-            self.client_info.pop(self.get_client_key(client))
+            self.client_info.pop(self.get_client_key(client), None)
             return
         if info:
-            info = self.client_info.pop(info)
-            self.client_list.remove(info['client'])
+            info = self.client_info.pop(info, None)
+            info and self.client_list.remove(info['client'])
             return
 
-    def handle_msg(self, msg: str):
+    def handle_msg(self, client: SocketType, msg: str):
         raise NotImplementedError
 
-    def get_client_key(self, client):
-        if not client: return None
+    def get_client_key(self, client: SocketType) -> str:
+        if not client: return ''
         ip, addr = client.getpeername()
         return f'{ip}:{addr}'
 
     @property
-    def sender(self):
+    def sender(self) -> str:
         return f'{HOST}:{PORT}'

@@ -15,18 +15,20 @@ from common.singleton import Singleton
 
 
 @Singleton
-class Server(SocketServer, RPCServer):
+class Server(SocketServer):
 
     def __init__(self):
         SocketServer.__init__(self)
-        RPCServer.__init__(self)
+        self._rpc_server = RPCServer()
         self.hall = Hall(self)
         self.hall.start()
 
-    def handle_msg(self, msg):
+    def handle_msg(self, client, msg):
         to = None
         try:
             msg = Msg.load(msg)
+            host, port = client.getpeername()
+            msg.sender = f'{host}:{port}'
             to = self.client_info[msg.sender]['client']
             # if msg.types == Msg.TYPE_LOGIN:
             #     self.client_info[msg.sender]['username'] = msg.data['username']
@@ -49,8 +51,9 @@ class Server(SocketServer, RPCServer):
                 func_args = msg.data.get('func_args', None)
                 func_kwargs = msg.data.get('func_kwargs', None)
                 callback = func_kwargs.pop('callback', None)
-                func_kwargs.update({'server': self, 'client': to, 'types': 'RPC'})
-                res = self.rpc_call(func_name, func_args, func_kwargs)
+                # func_kwargs.update({'server': self, 'client': to, 'types': 'RPC'})
+                func = getattr(views, func_name)
+                res = func(self, to, *func_args, **func_kwargs)
                 if not res: res = {}
                 callback and res.update({'callback': callback})
                 self.send_to(to, Msg(res, types=Msg.TYPE_RPC, sender=self.sender).value)
@@ -61,6 +64,3 @@ class Server(SocketServer, RPCServer):
         except Exception as e:
             traceback.print_exc()
             to and self.send_to(to, Msg(data={'code': 500, 'msg': str(e)}, types=Msg.TYPE_NORMAL, sender=self.sender).value)
-
-    def test_rpc(self, user_id):
-        return R().Data(f'{user_id}, welcome to rpc api').Dict()
