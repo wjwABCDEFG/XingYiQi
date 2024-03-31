@@ -9,14 +9,16 @@ from common.Exception import IllegalChessException, IllegalPosException, TurnExc
 from common.R import R
 from common.config import DEBUG
 from net.msg import Msg
+from net.rpc_server import rpc_view
 
 
-def match(server, client, **kwargs):
+def match(server, client, *args, **kwargs):
     open_id = int(kwargs.get('open_id', None))
-    server.hall.enter_hall(client)
+    server.hall.line_up(client)
 
 
-def begin(server, client, **kwargs):
+@rpc_view()
+def begin(server, client, *args, **kwargs):
     types = kwargs.get('types', None)
     # game_id = int(params.get('game_id', None))
     # game = server.hall.get_game(game_id)
@@ -34,7 +36,7 @@ def begin(server, client, **kwargs):
     return resp
 
 
-def move(server, client, **kwargs):
+def move(server, client, *args, **kwargs):
     # game_id = int(kwargs.get('game_id', 0))
     player_id = int(kwargs.get('player_id', 0))
     pai_id = str(kwargs.get('pai_id', ''))
@@ -72,14 +74,4 @@ def move(server, client, **kwargs):
         server.send_to(player.client, Msg(resp, sender=server.sender).value)
     DEBUG and print(resp)
     DEBUG and game.pan.show()
-    return resp
-
-
-def over(server, client, params):
-    return {}
-
-
-def test(server, client, params):
-    resp = R().Data("This is socket test msg...").Dict()
-    server.send_all(Msg(resp, sender=server.sender).value)
     return resp

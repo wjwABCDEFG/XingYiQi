@@ -10,7 +10,7 @@ class MsgFormatException(Exception):
         self.msg = msg
 
     def __str__(self):
-        return "消息格式错误"
+        return "消息格式错误" + self.msg
 
 
 class IllegalPosException(Exception):
@@ -18,7 +18,7 @@ class IllegalPosException(Exception):
         self.msg = msg
 
     def __str__(self):
-        return "棋子不可以在此位置"
+        return "棋子不可以在此位置" + self.msg
 
 
 class IllegalChessException(Exception):
@@ -26,7 +26,7 @@ class IllegalChessException(Exception):
         self.msg = msg
 
     def __str__(self):
-        return "非法棋子"
+        return "非法棋子" + self.msg
 
 
 class GameNotFoundException(Exception):
@@ -34,7 +34,7 @@ class GameNotFoundException(Exception):
         self.msg = msg
 
     def __str__(self):
-        return "房间不存在"
+        return "房间不存在" + self.msg
 
 
 class PlayerNotFoundException(Exception):
@@ -42,7 +42,15 @@ class PlayerNotFoundException(Exception):
         self.msg = msg
 
     def __str__(self):
-        return "玩家不存在"
+        return "玩家不存在" + self.msg
+
+
+class PlayerReEntryException(Exception):
+    def __init__(self, msg=""):
+        self.msg = msg
+
+    def __str__(self):
+        return "玩家已经在排队中" + self.msg
 
 
 class TurnException(Exception):
@@ -50,4 +58,4 @@ class TurnException(Exception):
         self.msg = msg
 
     def __str__(self):
-        return "不是您的回合，无法移动棋子"
+        return "不是您的回合，无法移动棋子" + self.msg

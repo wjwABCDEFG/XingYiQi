@@ -6,9 +6,11 @@
 import threading
 from queue import Queue, Empty
 
+from _socket import SocketType
+
 from Game import Game
 from Player import Player
-from common.Exception import GameNotFoundException, PlayerNotFoundException
+from common.Exception import GameNotFoundException, PlayerNotFoundException, PlayerReEntryException
 from common.R import R
 from common.singleton import Singleton
 from net.msg import Msg
@@ -22,9 +24,17 @@ class Hall:
         self.games = {}
         self.players = {}
         self._queue = Queue()
-        self.waiting = []
 
-    def enter_hall(self, player):
+    def line_up(self, client: SocketType):
+        """
+        排队
+        :param client:
+        :return:
+        """
+        # TODO 这里下面两句应该在更早的地方，一连接就进入idle和加入players，line_up只是变成waiting状态和加入等待队列
+        player = Player(client)
+        self.players[player.id] = player
+        player.state = Player.WAITING
         self._queue.put(player)
 
     def start(self):
@@ -33,22 +43,15 @@ class Hall:
     def process(self):
         while True:
             try:
-                player = self._queue.get(block=False)
-                self.waiting.append(player)
-                if len(self.waiting) == 2:
-                    game = Game(self.server)
-                    player1 = Player(self.waiting[0], game, None, power=True)
-                    player2 = Player(self.waiting[1], game, None, power=False)
-                    game.player1 = player1
-                    game.player2 = player2
-                    self.players[player1.id] = player1
-                    self.players[player2.id] = player2
+                if self._queue.qsize() >= 2:
+                    player1 = self._queue.get()
+                    player2 = self._queue.get()
+                    game = Game(self.server, player1, player2)
+                    game.start()    # 游戏开始逻辑移到这里，匹配成功就开始
                     self.games[game.id] = game
-                    self.waiting = []
-                    game.start(game.id)    # 游戏开始逻辑移到这里，匹配成功就开始
-                    self.server.send_to(player1.client, Msg(R().Data({'state': State.MATCHED, 'game_id': game.id, 'player_id': player1.id}).Dict()).value)
-                    self.server.send_to(player2.client, Msg(R().Data({'state': State.MATCHED, 'game_id': game.id, 'player_id': player2.id}).Dict()).value)
-            except Empty as e:
+                    self.server.send_to(player1.client, Msg(R().Data(player1.body).Dict()).value)
+                    self.server.send_to(player2.client, Msg(R().Data(player2.body).Dict()).value)
+            except Empty:
                 pass
 
     def get_game(self, game_id):
