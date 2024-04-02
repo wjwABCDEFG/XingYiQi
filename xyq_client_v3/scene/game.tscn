@@ -71,10 +71,10 @@ scale = Vector2( -0.222212, -0.229814 )
 texture = ExtResource( 9 )
 
 [node name="back_home" type="TextureButton" parent="CanvasLayer"]
-margin_left = 326.0
-margin_top = 442.0
-margin_right = 709.0
-margin_bottom = 601.0
+margin_left = 309.0
+margin_top = 440.0
+margin_right = 692.0
+margin_bottom = 599.0
 rect_scale = Vector2( 0.361011, 0.361011 )
 texture_normal = ExtResource( 3 )
 
@@ -126,3 +126,5 @@ scale = Vector2( -0.222, -0.23 )
 __meta__ = {
 "_edit_group_": true
 }
+
+[connection signal="button_down" from="CanvasLayer/back_home" to="." method="_on_back_home_button_down"]

@@ -6,7 +6,11 @@ const TCPrelated = preload("res://scripts/Network/TCPrelated.gd")   #import
 # 变量
 var current_scene = null
 var TCP_client = null
+# server variant
 var mora_res = false
+var player_id = null
+var game_id = null
+var power = null
 
 # function
 func _ready():

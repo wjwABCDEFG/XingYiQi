@@ -8,6 +8,22 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": "i_wrapper",
+"language": "GDScript",
+"path": "res://scripts/Network/interface_wrapper.gd"
+}, {
+"base": "Reference",
+"class": "sever_deliver",
+"language": "GDScript",
+"path": "res://scripts/Network/sever_deliver.gd"
+} ]
+_global_script_class_icons={
+"i_wrapper": "",
+"sever_deliver": ""
+}
+
 [application]
 
 config/name="Xyq Client V 3"

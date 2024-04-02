@@ -46,23 +46,20 @@ var b_choose_checkerboard = false
 var mgr_checkboard = null
 var map_playing_card = {}
 
-var cls_interface = preload("res://scripts/Network/interface.gd")
-var interface_helper = null
-
 func _ready():
 	mgr_checkboard = CheckboardProcessor
 	# b_my_turn = Global.mora_res
-	b_my_turn = true
-	_GameInit()
-	interface_helper = cls_interface.new()
-	Global.TCP_client.put_str(interface_helper.assemble_login("aa", "bb"))
-	print(IP.get_local_interfaces()[0]["addresses"])
+	# _GameInit()
+
+	Global.TCP_client.put_str(i_wrapper.assemble_match("8899"))
+	Global.TCP_client.connect("sv_begin_complte", self, "_GameInit")
 
 # 初始化棋盘
-func _GameInit():
-	var game_init_json_data = read("res://config/init_game_test.json")
+func _GameInit(game_init_json_data):
+	print("dddddd")
+	# var game_init_json_data = read("res://config/init_game_test.json")
 	assert(game_init_json_data!=null)
-	_setup_player_hands(game_init_json_data["data"]["pai"])
+	_setup_player_hands(game_init_json_data["pai"])
 	
 	var node = $CanvasLayer/main_qipan/Qipan/checkerboard
 	for i in range(5):
@@ -74,7 +71,7 @@ func _GameInit():
 			node.add_child(btn)
 			mgr_checkboard.add_piece(btn)
 
-	for item in game_init_json_data["data"]["pan"]["chess"]:
+	for item in game_init_json_data["pan"]["chess"]:
 		var pos = item["pos"]
 		var camp = item["camp"]
 		var role = item["role"]
@@ -178,10 +175,12 @@ func _end_turn():
 
 # game loop
 func _process(delta):
-	if !b_game_init_complete:
-		return
+	# if !b_game_init_complete:
+	# 	return
 
 	# TODO 轮询到回合没
+
+	sever_deliver.continuous_get_message()
 
 	if b_my_turn:
 		if b_choose_card && b_choose_piece:
@@ -194,3 +193,8 @@ func _process(delta):
 		else:
 			_clear_piece_checkerboard()
 
+
+
+func _on_back_home_button_down():
+	assert(Global.player_id)
+	Global.TCP_client.put_str(i_wrapper.assemble_begin(Global.player_id))
