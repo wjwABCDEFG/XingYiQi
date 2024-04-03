@@ -29,4 +29,4 @@ func _on_begin_button_down():
 # 	Global.TCP_client.put_str(msg)
 
 func _process(delta):
-	sever_deliver.continuous_get_message()
+	sever_despatch.continuous_get_message()

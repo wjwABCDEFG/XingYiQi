@@ -4,7 +4,8 @@ class_name i_wrapper
 
 static func assemble_login(user_name, password):
 	var msg = {
-		"types": 0,
+		"types": 1,
+		"sender": "",
 		"data": {"method": "login", 
 			"user_name": user_name, 
 			"password": password
@@ -15,7 +16,8 @@ static func assemble_login(user_name, password):
 
 static func assemble_mora(gameid, quan):
 	var msg = {
-		"types": 0,
+		"types": 1,
+		"sender": "",
 		"data": {
 			"game_id": gameid,
 			"quan": quan
@@ -23,16 +25,17 @@ static func assemble_mora(gameid, quan):
 	}
 	return JSON.print(msg)
 
-static func assemble_move():
+static func assemble_move(chess_id, pai_id,from_pos, to_pos):
 	var msg = {
-		"types": 0,
+		"types": 1,
+		"sender": "",
 		"data": {"method": "move", 
 			'params': {
-                   'player_id': 123,
-                   'chess_id': 123,
-                   'pai_id': 123,
-                   'from_pos': [0, 0],
-                   'to_pos': [1, 1]
+                   'player_id': Global.player_id,
+                   'chess_id': chess_id,
+                   'pai_id': pai_id,
+                   'from_pos': from_pos, # [0, 0],
+                   'to_pos': to_pos #[1, 1]
                }
 		}
 	}

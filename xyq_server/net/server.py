@@ -62,5 +62,6 @@ class Server(SocketServer):
                 func = getattr(views, req['method'])
                 func(self, to, **req['params'])
         except Exception as e:
+            print(msg)
             traceback.print_exc()
             to and self.send_to(to, Msg(data={'code': 500, 'msg': str(e)}, types=Msg.TYPE_NORMAL, sender=self.sender).value)

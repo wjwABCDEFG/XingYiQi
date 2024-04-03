@@ -15,13 +15,13 @@ _global_script_classes=[ {
 "path": "res://scripts/Network/interface_wrapper.gd"
 }, {
 "base": "Reference",
-"class": "sever_deliver",
+"class": "sever_despatch",
 "language": "GDScript",
-"path": "res://scripts/Network/sever_deliver.gd"
+"path": "res://scripts/Network/sever_despatch.gd"
 } ]
 _global_script_class_icons={
 "i_wrapper": "",
-"sever_deliver": ""
+"sever_despatch": ""
 }
 
 [application]
@@ -40,6 +40,10 @@ CheckboardProcessor="*res://scripts/Singleton/CheckboardProcessor.gd"
 
 window/size/width=480
 window/size/height=720
+
+[global]
+
+"Enable File Logging"=false
 
 [gui]
 

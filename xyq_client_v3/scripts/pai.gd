@@ -1,13 +1,13 @@
 extends Node2D
 # 单张牌类
 
-var _card_id
+var card_id
 var viable_area = []
 var viable_area_offset = []
 var begin_point
 
 func init(card_name):
-	_card_id = card_name
+	card_id = card_name
 	var card_details = PieceProcessor.read_card_detail(card_name)
 	_init_pai(card_details)
 	_init_offset()

@@ -78,6 +78,14 @@ margin_bottom = 599.0
 rect_scale = Vector2( 0.361011, 0.361011 )
 texture_normal = ExtResource( 3 )
 
+[node name="test_match" type="TextureButton" parent="CanvasLayer"]
+margin_left = 309.0
+margin_top = 369.0
+margin_right = 692.0
+margin_bottom = 528.0
+rect_scale = Vector2( 0.361011, 0.361011 )
+texture_normal = ExtResource( 3 )
+
 [node name="yourHand" type="Node2D" parent="CanvasLayer"]
 position = Vector2( 165, 132 )
 scale = Vector2( 0.707875, 0.707875 )
@@ -128,3 +136,4 @@ __meta__ = {
 }
 
 [connection signal="button_down" from="CanvasLayer/back_home" to="." method="_on_back_home_button_down"]
+[connection signal="button_down" from="CanvasLayer/test_match" to="." method="_on_test_match_button_down"]

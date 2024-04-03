@@ -1,3 +1,6 @@
+# StreamPeerTCP发布wasm时会转为websocket
+# 先改http请求 TODO    requests.post('http://127.0.0.1:9394/login', json={"user_name": "wenjiawei", "password": "123456"})
+
 
 var client
 
@@ -5,15 +8,14 @@ func _init():
     client = StreamPeerTCP.new()
     client.connect_to_host("26.26.26.1", 9999)
 
+
 func get_str():
     var data = client.get_utf8_string(client.get_available_bytes())
     if data != null && data != "":
-        print(data)
         return data
 
 func put_str(_str):
     client.put_data(_str.to_ascii())
-
 
 signal sv_match_complete(player_id, game_id)
 func parse_match(dic: Dictionary):
@@ -25,3 +27,7 @@ func parse_match(dic: Dictionary):
 signal sv_begin_complte(dic)
 func parse_begin(dic: Dictionary):
     emit_signal("sv_begin_complte", dic)
+
+signal sv_move_chess(dic)
+func parse_moving(dic: Dictionary):
+    emit_signal("sv_move_chess", dic)

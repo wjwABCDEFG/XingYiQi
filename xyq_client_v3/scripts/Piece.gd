@@ -3,6 +3,7 @@ extends Node
 var b_our_camp = false
 var posX = 0
 var posY = 0
+var id = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -12,6 +13,9 @@ func set_texture(args):
 
 func set_camp(args):
 	b_our_camp = args
+
+func set_id(args):
+	id = args
 
 func set_pos(x, y):
 	posX = x
